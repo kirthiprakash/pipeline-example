@@ -29,6 +29,7 @@ jobs:
   - name: prod-display-commit
     plan:
       - get: pipeline-example-repo
+        version: every
         trigger: true
         passed: [stage-display-commit]
       - task: display-file
