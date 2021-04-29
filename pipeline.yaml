@@ -26,4 +26,20 @@ jobs:
           run:
             path: cat
             args: [pipeline-example-repo/app/file.txt]
-
+  - name: prod-display-commit
+    plan:
+      - get: pipeline-example-repo
+        version: every
+        trigger: true
+        passed: [stage-display-commit]
+      - task: display-file
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          inputs:
+            - name: pipeline-example-repo
+          run:
+            path: cat
+            args: [pipeline-example-repo/app/file.txt]
