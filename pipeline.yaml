@@ -11,13 +11,9 @@ resources:
 jobs:
   - name: stage-display-commit
     plan:
-    - in_parallel:
-      fail_fast: true
-      steps:
-        - get: pipeline-example-repo
-          version: every
-          trigger: true
-    - do:
+      - get: pipeline-example-repo
+        version: every
+        trigger: true
       - task: display-file
         config:
           platform: linux
