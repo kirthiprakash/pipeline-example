@@ -24,8 +24,13 @@ jobs:
           inputs:
             - name: pipeline-example-repo
           run:
-            path: cat
-            args: [pipeline-example-repo/app/file.txt]
+            path: /bin/sh
+            args: 
+            - -exc
+            - |
+              cat pipeline-example-repo/app/file.txt
+              echo "Sleeping 60sec"
+              sleep 60
   - name: prod-display-commit
     plan:
       - get: pipeline-example-repo
