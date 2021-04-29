@@ -5,6 +5,7 @@ resources:
     source:
       uri: git@github.com:kirthiprakash/pipeline-example.git
       branch: master
+      private_key: ((prikey))
       paths:
         - app
 
@@ -20,7 +21,9 @@ jobs:
           image_resource:
             type: docker-image
             source: {repository: busybox}
+          inputs:
+            - name: pipeline-example-repo
           run:
             path: cat
-            args: [pipeline-example-repo/file.txt]
+            args: [pipeline-example-repo/app/file.txt]
 
