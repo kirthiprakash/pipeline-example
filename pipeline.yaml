@@ -34,6 +34,7 @@ jobs:
   - name: prod-display-commit
     plan:
       - get: pipeline-example-repo
+        version: every
         trigger: true
         passed: [stage-display-commit]
       - task: display-file
@@ -45,5 +46,10 @@ jobs:
           inputs:
             - name: pipeline-example-repo
           run:
-            path: cat
-            args: [pipeline-example-repo/app/file.txt]
+            path: /bin/sh
+            args: 
+            - -exc
+            - |
+              cat pipeline-example-repo/app/file.txt
+              echo "Sleeping 50sec"
+              sleep 60
