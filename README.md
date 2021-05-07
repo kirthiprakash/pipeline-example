@@ -31,3 +31,6 @@ Feel free to change the configured repository and the private key as per your ne
 ```
 fly -t local sp -c pipeline.yaml -p pipe-ex -l credentails.yml
 ```
+
+#### Generating commits
+Run the [commits.sh](commits.sh) script to generate new commits on the [app/file.txt](app/file.txt)
