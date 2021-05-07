@@ -51,4 +51,4 @@ jobs:
             - |
               cat pipeline-example-repo/app/file.txt
               echo "Sleeping 50sec"
-              sleep 60
+              sleep 50
