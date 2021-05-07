@@ -29,12 +29,11 @@ jobs:
             - -exc
             - |
               cat pipeline-example-repo/app/file.txt
-              echo "Sleeping 60sec"
-              sleep 60
   - name: prod-display-commit
     plan:
       - get: pipeline-example-repo
         trigger: true
+        version: every
         passed: [stage-display-commit]
       - task: display-file
         config:
@@ -50,5 +49,3 @@ jobs:
             - -exc
             - |
               cat pipeline-example-repo/app/file.txt
-              echo "Sleeping 50sec"
-              sleep 50
