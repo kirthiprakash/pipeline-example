@@ -1,0 +1,77 @@
+resources:
+  - name: resource-repo
+    type: git
+    check_every: 1m
+    source:
+      uri: git@github.com:kirthiprakash/pipeline-example.git
+      branch: master
+      private_key: ((prikey))
+      paths:
+        - app
+  - name: resource-gist
+    type: git
+    source:
+      branch: master
+      uri: ((publishing-outputs-gist-uri))
+      private_key: ((prikey))
+
+jobs:
+  - name: stage-display-file
+    plan:
+      - get: resource-repo
+        version: every
+        trigger: true
+      - get: resource-gist
+      - task: display-file
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          inputs:
+            - name: resource-repo
+          run:
+            path: /bin/sh
+            args: 
+            - -exc
+            - |
+              cat resource-repo/app/file.txt
+          outputs:
+            - name: files
+      - task: mark-stage-as-success
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: alpine/git}
+          inputs:
+            - name: resource-repo
+            - name: resource-gist
+          outputs:
+            - name: updated-gist
+          run:
+            path: resource-repo/push-to-gist.sh
+      - put: resource-gist
+        params: {repository: updated-gist}
+  - name: prod-display-file
+    plan:
+      - get: resource-repo
+      - get: resource-gist
+        trigger: true
+        version: every
+        passed: [stage-display-file]
+      - task: display-file
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          inputs:
+            - name: resource-repo
+            - name: files
+          run:
+            path: /bin/sh
+            args: 
+            - -exc
+            - |
+              cat resource-repo/app/file.txt

@@ -29,16 +29,12 @@ jobs:
             - -exc
             - |
               cat pipeline-example-repo/app/file.txt
-              echo "Created a file on $(date)" > ./files/created_file
-          outputs:
-            - name: files
   - name: prod-display-commit
     plan:
       - get: pipeline-example-repo
         trigger: true
         version: every
         passed: [stage-display-commit]
-      - get: files
       - task: display-file
         config:
           platform: linux
