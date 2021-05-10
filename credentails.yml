@@ -10,3 +10,4 @@ prikey: |-
   roident, sunt in culpa qui officia deserunt mollit ani
   m id est laborum
   -----END OPENSSH PRIVATE KEY-----
+publishing-outputs-gist-uri: <gist clone URL in ssh format>
