@@ -28,7 +28,7 @@ jobs:
             args: 
             - -exc
             - |
-              cat pipeline-example-repo/app/file-not-available.txt
+              cat pipeline-example-repo/app/file.txt
   - name: prod-display-commit
     plan:
       - get: pipeline-example-repo
