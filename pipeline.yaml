@@ -43,7 +43,6 @@ jobs:
             source: {repository: busybox}
           inputs:
             - name: pipeline-example-repo
-            - name: files
           run:
             path: /bin/sh
             args: 

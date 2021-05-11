@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in {1..10}
+for i in {1..1}
 do
   date=$(exec date)
   echo "Index:$i; Date:$date" > app/file.txt
