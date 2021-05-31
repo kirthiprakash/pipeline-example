@@ -1,5 +1,7 @@
 # pipeline-example
 This repository contains installation scripts for Concourse CI/CD (with tracing enabled) and a basic Concourse pipeline configuration.
+This sample project was created as a POC to file a bug report on Concourse.
+https://github.com/concourse/concourse/issues/6988
 
 ### Concourse Installation
 ```
